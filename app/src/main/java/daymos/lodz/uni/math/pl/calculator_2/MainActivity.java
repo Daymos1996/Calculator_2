@@ -11,12 +11,13 @@ import android.widget.Toast;
 import net.objecthunter.exp4j.Expression;
 import net.objecthunter.exp4j.ExpressionBuilder;
 
-
+import java.util.ArrayList;
 
 
 public class MainActivity extends AppCompatActivity {
 
     private TextView resultView;
+    private ArrayList<String> calculateHistoryList;
     private String result;
     private Button button0;
     private Button button1;
@@ -68,13 +69,15 @@ public class MainActivity extends AppCompatActivity {
                        Expression expression = new ExpressionBuilder(result).build();
                        double calculate = expression.evaluate();
                        resultView.setText(DoubleToString(calculate));
-
+                       calculateHistoryList.add(result + '='+ DoubleToString(calculate)+ '\n');
                        result = "";
+
                    }
                    catch(Exception e){
                        Toast.makeText(MainActivity.this, "Incorrect", Toast.LENGTH_SHORT).show();
                    }
                }
+
            }
        });
 
@@ -94,6 +97,7 @@ public class MainActivity extends AppCompatActivity {
            @Override
            public void onClick(View view) {
                Intent intent = new Intent(MainActivity.this,HistoryActivity.class);
+               intent.putExtra("LIST", calculateHistoryList);
                startActivity(intent);
            }
        });
@@ -114,6 +118,7 @@ public class MainActivity extends AppCompatActivity {
 
     private void init() {
         resultView = findViewById(R.id.result);
+        calculateHistoryList = new ArrayList<String>();
         result = "";
         button0=(Button) findViewById(R.id.b_0);
         button1=(Button) findViewById(R.id.b_1);
