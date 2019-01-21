@@ -7,8 +7,8 @@ import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
 
-public class baza extends SQLiteOpenHelper {
-    public baza(Context context) {
+public class DataBase extends SQLiteOpenHelper {
+    public DataBase(Context context) {
         super(context, "wyniki.db", null, 1);
     }
 
@@ -27,7 +27,7 @@ public class baza extends SQLiteOpenHelper {
     }
 
 
-    public void dodajWyrazenie(String wyrazenie) {
+    public void addExpression(String wyrazenie) {
         SQLiteDatabase db = getWritableDatabase();
         ContentValues wartosci = new ContentValues();
         wartosci.put("wyrazenie", wyrazenie);
@@ -35,11 +35,12 @@ public class baza extends SQLiteOpenHelper {
         db.insertOrThrow("wyniki", null, wartosci);
     }
 
-    public Cursor pokazWszystkie() {
+    public Cursor showAll() {
         String[] kolumny = {"nr", "wyrazenie"};
         SQLiteDatabase db = getReadableDatabase();
         Cursor kursor = db.query("wyniki", kolumny, null, null, null, null, null);
         return kursor;
     }
+
 
 }
