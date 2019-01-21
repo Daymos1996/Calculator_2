@@ -27,9 +27,9 @@ public class HistoryActivity extends AppCompatActivity {
 
         Cursor m= DataBase.showAll();
         while (m.moveToNext()){
-            int numer=m.getInt(0);
-            String wynik=m.getString(1);
-            result.setText(result.getText()+"\n"+ numer + ".     " + wynik );
+            int number=m.getInt(0);
+            String expression=m.getString(1);
+            result.setText(result.getText()+"\n"+ number + ".     " + expression );
         }
         calculateHistoryList.clear();
 

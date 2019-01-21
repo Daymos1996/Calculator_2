@@ -9,16 +9,16 @@ import android.database.sqlite.SQLiteOpenHelper;
 
 public class DataBase extends SQLiteOpenHelper {
     public DataBase(Context context) {
-        super(context, "wyniki.db", null, 1);
+        super(context, "result.db", null, 1);
     }
 
     @Override
     public void onCreate(SQLiteDatabase db) {
 
         db.execSQL(
-                "create table wyniki(" +
+                "create table result(" +
                         "nr integer primary key autoincrement," +
-                        "wyrazenie text);" +
+                        "expression text);" +
                         "");
     }
 
@@ -27,19 +27,19 @@ public class DataBase extends SQLiteOpenHelper {
     }
 
 
-    public void addExpression(String wyrazenie) {
+    public void addExpression(String expression) {
         SQLiteDatabase db = getWritableDatabase();
-        ContentValues wartosci = new ContentValues();
-        wartosci.put("wyrazenie", wyrazenie);
+        ContentValues value = new ContentValues();
+        value.put("expression", expression);
 
-        db.insertOrThrow("wyniki", null, wartosci);
+        db.insertOrThrow("result", null, value);
     }
 
     public Cursor showAll() {
-        String[] kolumny = {"nr", "wyrazenie"};
+        String[] column = {"nr", "expression"};
         SQLiteDatabase db = getReadableDatabase();
-        Cursor kursor = db.query("wyniki", kolumny, null, null, null, null, null);
-        return kursor;
+        Cursor cursor = db.query("result", column, null, null, null, null, null);
+        return cursor;
     }
 
 
